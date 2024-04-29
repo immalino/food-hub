@@ -40,7 +40,7 @@ export default function DetailItem() {
       <div className="flex w-full justify-between">
         <h1 className="text-3xl font-semibold text-orange">
           <span className="text text-base">$</span>
-          {selectedItem.price}
+          {selectedItem.price * valueCart}
         </h1>
         <div className="flex items-center justify-center gap-2">
           <div
