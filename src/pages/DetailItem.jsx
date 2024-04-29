@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { StoreContext } from "../context/StoreContext";
 import {
   FaAngleLeft,
@@ -11,7 +11,9 @@ import {
 import { useParams } from "react-router";
 
 export default function DetailItem() {
-  const { food_list, addToFavorite, favoriteItems } = useContext(StoreContext);
+  const { food_list, addToFavorite, favoriteItems, addToCart } =
+    useContext(StoreContext);
+  const [valueCart, setValueCart] = useState(1);
   const { id } = useParams();
 
   const selectedItem = food_list.find((item) => item._id === id);
@@ -40,18 +42,27 @@ export default function DetailItem() {
           <span className="text text-base">$</span>
           {selectedItem.price}
         </h1>
-        <div className="flex items-center justify-center gap-1">
-          <div className="flex h-7 w-7 items-center justify-center rounded-[50%] border border-orange bg-white text-orange">
+        <div className="flex items-center justify-center gap-2">
+          <div
+            onClick={() => valueCart > 1 && setValueCart(valueCart - 1)}
+            className="flex h-7 w-7 items-center justify-center rounded-[50%] border border-orange bg-white text-orange"
+          >
             <FaMinus />
           </div>
-          <p>02</p>
-          <div className="flex h-7 w-7 items-center justify-center rounded-[50%] border border-orange bg-orange text-white">
+          <p>{valueCart}</p>
+          <div
+            onClick={() => setValueCart(valueCart + 1)}
+            className="flex h-7 w-7 items-center justify-center rounded-[50%] border border-orange bg-orange text-white"
+          >
             <FaPlus />
           </div>
         </div>
       </div>
       <p className="text-base text-grey">{selectedItem.description}</p>
-      <div className="absolute bottom-[90px] flex h-[53px] w-[167px] items-center justify-between rounded-full  bg-orange p-2">
+      <div
+        onClick={() => addToCart(selectedItem._id, valueCart)}
+        className="absolute bottom-[90px] flex h-[53px] w-[167px] cursor-pointer items-center justify-between rounded-full  bg-orange p-2"
+      >
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-orange">
           <FaBagShopping />
         </div>
