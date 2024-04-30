@@ -4,7 +4,7 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   // Cart Context
-  const [cartItems, setCartItems] = useState({});
+  const [cartItems, setCartItems] = useState({ 1: 2 });
 
   const addToCart = (itemId, value) => {
     if (!cartItems[itemId]) {
@@ -12,6 +12,10 @@ const StoreContextProvider = (props) => {
     } else {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + value }));
     }
+  };
+
+  const reOrderFromHistory = (reorderitem) => {
+    setCartItems(reorderitem);
   };
 
   const removeFromCart = (itemId) => {
@@ -56,7 +60,7 @@ const StoreContextProvider = (props) => {
 
   const [orderHistory, setOrderHistory] = useState([]);
 
-  const addOrderToHistory = (item, total, money) => {
+  const addOrderToHistory = (item, subTotal, tax, total, money, delivery) => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth() + 1;
@@ -86,8 +90,11 @@ const StoreContextProvider = (props) => {
       id: id,
       date: `${day < 10 ? "0" + day : day} ${monthAbbreviation}, ${hour < 10 ? "0" + hour : hour}:${minute < 10 ? "0" + minute : minute}`,
       item: item,
+      subTotal: subTotal,
+      tax: tax,
       total: total,
       money: money,
+      delivery: delivery,
     };
 
     setOrderHistory((prev) => [...prev, newItem]);
@@ -103,6 +110,7 @@ const StoreContextProvider = (props) => {
     cartItems,
     setCartItems,
     addToCart,
+    reOrderFromHistory,
     removeFromCart,
     addToFavorite,
     increaseCartItem,

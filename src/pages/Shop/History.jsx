@@ -1,16 +1,13 @@
 import { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../../context/StoreContext";
 import { GoDotFill } from "react-icons/go";
+import { useParams } from "react-router";
+import { NavLink } from "react-router-dom";
 
 export default function Cart() {
-  const {
-    food_list,
-    cartItems,
-    increaseCartItem,
-    decreaseCartItem,
-    removeFromCart,
-    orderHistory,
-  } = useContext(StoreContext);
+  const { food_list, orderHistory } = useContext(StoreContext);
+
+  const { id } = useParams();
 
   const formatNumber = (num) => {
     return num % 1 === 0 ? num.toFixed(0) : num.toFixed(1);
@@ -19,7 +16,7 @@ export default function Cart() {
   const isEmptyHistory = Object.keys(orderHistory).length === 0;
 
   return (
-    <div className="">
+    <div>
       {isEmptyHistory ? (
         <div className="mt-72 flex  w-full items-center justify-center text-center">
           There is no item in your history
@@ -46,9 +43,9 @@ export default function Cart() {
                     <div className="flex h-[90px] flex-1 flex-col justify-evenly px-1">
                       {/* 1  */}
                       <div className="col-span-2 flex justify-between">
-                        <div className="flex flex-col items-start md:items-center justify-center md:gap-2 text-sm text-grey md:flex-row">
+                        <div className="flex flex-col items-start justify-center text-sm text-grey md:flex-row md:items-center md:gap-2">
                           <p className="">{item.date}</p>
-                          <div className="flex justify-start items-center gap-2">
+                          <div className="flex items-center justify-start gap-2">
                             <GoDotFill className=" " />
                             <p>
                               {Object.keys(item.item).length}{" "}
@@ -76,11 +73,14 @@ export default function Cart() {
 
                     {/* 4 */}
                     <div className="col-span-3 flex flex-1 justify-around px-6">
-                      <div className="flex h-[43px] w-full cursor-pointer items-center justify-between rounded-full border border-grey-50 bg-white p-2 text-orange hover:bg-orange hover:text-white sm:min-w-[200px]">
+                      <NavLink
+                        to={`${item.id}`}
+                        className="flex h-[43px] w-full cursor-pointer items-center justify-between rounded-full border border-grey-50 bg-white p-2 text-orange hover:bg-orange hover:text-white sm:min-w-[200px]"
+                      >
                         <div className="flex flex-1 items-center justify-center text-sm font-medium tracking-widest ">
                           See detail
                         </div>
-                      </div>
+                      </NavLink>
                     </div>
                   </div>
                 );

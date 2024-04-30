@@ -9,6 +9,7 @@ import {
   FaBagShopping,
 } from "react-icons/fa6";
 import { useParams } from "react-router";
+import { NavLink } from "react-router-dom";
 
 export default function DetailItem() {
   const { food_list, addToFavorite, favoriteItems, addToCart } =
@@ -66,9 +67,12 @@ export default function DetailItem() {
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-orange">
           <FaBagShopping />
         </div>
-        <div className="flex flex-1 items-center justify-center text-sm text-white">
+        <NavLink
+          to={`/`}
+          className="flex flex-1 items-center justify-center text-sm text-white"
+        >
           ADD TO CART
-        </div>
+        </NavLink>
       </div>
     </div>
   );

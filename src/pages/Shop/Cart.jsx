@@ -78,7 +78,14 @@ export default function Cart() {
       alert("Please add your money first!");
       return;
     }
-    addOrderToHistory(cartItems, pay.total, money);
+    addOrderToHistory(
+      cartItems,
+      formatNumber(pay.subTotal),
+      formatNumber(pay.taxAndFees),
+      formatNumber(pay.total),
+      money,
+      formatNumber(pay.delivery),
+    );
     Object.keys(cartItems).forEach((itemId) => removeFromCart(itemId));
   };
 
