@@ -10,6 +10,7 @@ export default function Cart() {
     increaseCartItem,
     decreaseCartItem,
     removeFromCart,
+    addOrderToHistory,
   } = useContext(StoreContext);
 
   const [pay, setPay] = useState({
@@ -71,6 +72,15 @@ export default function Cart() {
   useEffect(() => {
     setYourChange(money - pay.total);
   }, [money, pay.total]);
+
+  const checkOut = () => {
+    if (money <= 0) {
+      alert("Please add your money first!");
+      return;
+    }
+    addOrderToHistory(cartItems, pay.total, money);
+    Object.keys(cartItems).forEach((itemId) => removeFromCart(itemId));
+  };
 
   return (
     <div className="">
@@ -216,7 +226,7 @@ export default function Cart() {
           </div>
           <div className="flex justify-center">
             <div
-              onClick={() => moneyCheck()}
+              onClick={() => checkOut()}
               className="absolute bottom-[90px] flex h-[53px] w-[167px] cursor-pointer items-center justify-between rounded-full bg-orange p-2"
             >
               <div className="flex flex-1 items-center justify-center text-sm font-medium tracking-widest text-white">

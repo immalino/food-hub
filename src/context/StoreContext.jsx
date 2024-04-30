@@ -40,10 +40,6 @@ const StoreContextProvider = (props) => {
     });
   };
 
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
-
   // Favorite Context
 
   const [favoriteItems, setFavoriteItems] = useState({});
@@ -58,19 +54,49 @@ const StoreContextProvider = (props) => {
 
   // History Context
 
-  const [orderHistory, setOrderHistory] = useState({
-    id: 12345,
-    item: {
-      1: 2,
-      2: 2,
-    },
-    total: 120,
-    date: 122,
-  });
+  const [orderHistory, setOrderHistory] = useState([]);
 
-  const addOrderToHistory = (order) => {
-    setOrderHistory((prev) => ({ ...prevHistory, order }));
+  const addOrderToHistory = (item, total, money) => {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const monthAbbreviations = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const monthAbbreviation = monthAbbreviations[currentDate.getMonth()];
+    const day = currentDate.getDate();
+    const hour = currentDate.getHours();
+    const minute = currentDate.getMinutes();
+    const second = currentDate.getSeconds();
+
+    const id = `${hour < 10 ? "0" + hour : hour}${minute < 10 ? "0" + minute : minute}${second < 10 ? "0" + second : second}`;
+
+    const newItem = {
+      id: id,
+      date: `${day < 10 ? "0" + day : day} ${monthAbbreviation}, ${hour < 10 ? "0" + hour : hour}:${minute < 10 ? "0" + minute : minute}`,
+      item: item,
+      total: total,
+      money: money,
+    };
+
+    setOrderHistory((prev) => [...prev, newItem]);
   };
+
+  useEffect(() => {
+    console.log(cartItems);
+    console.log(orderHistory);
+  }, [cartItems, orderHistory]);
 
   const contextValue = {
     food_list,
@@ -83,6 +109,8 @@ const StoreContextProvider = (props) => {
     decreaseCartItem,
     favoriteItems,
     setFavoriteItems,
+    orderHistory,
+    addOrderToHistory,
   };
 
   return (
