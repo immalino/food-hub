@@ -49,14 +49,38 @@ export default function Cart() {
 
   const isEmptyCart = Object.keys(cartItems).length === 0;
 
+  const [money, setMoney] = useState(0);
+
+  // useEffect(() => {
+  //   console.log(money)
+  // }, [money]);
+
+  const moneyCheck = () => {
+    const moneyInput = prompt();
+    const moneyAmount = parseFloat(moneyInput);
+
+    if (!isNaN(moneyAmount) && moneyAmount >= pay.subTotal) {
+      setMoney(moneyAmount);
+    } else {
+      alert("Invalid input or not enough money.");
+    }
+  };
+
+  const [yourChange, setYourChange] = useState(0);
+
+  useEffect(() => {
+    setYourChange(money - pay.total);
+  }, [money, pay.total]);
+
   return (
-    <>
+    <div className="">
       {isEmptyCart ? (
         <div className="mt-72 flex w-full items-center justify-center text-center">
           There is no item in your cart
         </div>
       ) : (
-        <div>
+        <div className="">
+          <div className="absolute"></div>
           <div className="flex flex-col gap-3 ">
             {food_list.map((item, index) => {
               if (cartItems[item._id] > 0) {
@@ -138,7 +162,12 @@ export default function Cart() {
             <div className="flex justify-between text-lg font-medium">
               <h2>
                 Total
-                <span>{` ${Object.keys(cartItems).length} ${Object.keys(cartItems).length > 1 ? "items" : "item"}`}</span>
+                <span className="text-sm text-grey">
+                  {" "}
+                  (
+                  {` ${Object.keys(cartItems).length} ${Object.keys(cartItems).length > 1 ? "items" : "item"}`}
+                  )
+                </span>
               </h2>
               <h2>
                 ${formatNumber(pay.total)}
@@ -146,8 +175,57 @@ export default function Cart() {
               </h2>
             </div>
           </div>
+          <hr className="mt-8" />
+          <div className="mt-8">
+            <div className="flex justify-between text-lg font-medium">
+              <h2>Your money</h2>
+              <h2>
+                {money >= pay.total ? (
+                  <>
+                    ${formatNumber(money)}{" "}
+                    <span className="ml-1 text-sm text-grey">USD</span>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => moneyCheck()}
+                    className="mr-4 cursor-pointer rounded-full border bg-orange px-2 text-sm text-white"
+                  >
+                    add
+                  </button>
+                )}
+              </h2>
+            </div>
+            <div className="flex justify-between text-lg font-medium">
+              <h2>Total</h2>
+              <h2>
+                ${formatNumber(pay.total)}
+                <span className="ml-1 text-sm text-grey">USD</span>
+              </h2>
+            </div>
+            <div className="my-2 flex items-center justify-end gap-2">
+              <div className="h-[2px] w-20 bg-black"></div>
+              <div className="h-[2px] w-2 bg-black"></div>
+            </div>
+            <div className="flex justify-between text-lg font-medium">
+              <h2>Your change</h2>
+              <h2>
+                ${formatNumber(yourChange)}
+                <span className="ml-1 text-sm text-grey">USD</span>
+              </h2>
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <div
+              onClick={() => moneyCheck()}
+              className="absolute bottom-[90px] flex h-[53px] w-[167px] cursor-pointer items-center justify-between rounded-full bg-orange p-2"
+            >
+              <div className="flex flex-1 items-center justify-center text-sm font-medium tracking-widest text-white">
+                CHECKOUT
+              </div>
+            </div>
+          </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

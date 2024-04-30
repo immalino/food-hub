@@ -56,6 +56,22 @@ const StoreContextProvider = (props) => {
     }
   };
 
+  // History Context
+
+  const [orderHistory, setOrderHistory] = useState({
+    id: 12345,
+    item: {
+      1: 2,
+      2: 2,
+    },
+    total: 120,
+    date: 122,
+  });
+
+  const addOrderToHistory = (order) => {
+    setOrderHistory((prev) => ({ ...prevHistory, order }));
+  };
+
   const contextValue = {
     food_list,
     cartItems,
