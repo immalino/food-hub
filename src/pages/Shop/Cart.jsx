@@ -52,10 +52,6 @@ export default function Cart() {
 
   const [money, setMoney] = useState(0);
 
-  // useEffect(() => {
-  //   console.log(money)
-  // }, [money]);
-
   const moneyCheck = () => {
     const moneyInput = prompt();
     const moneyAmount = parseFloat(moneyInput);
@@ -90,14 +86,13 @@ export default function Cart() {
   };
 
   return (
-    <div className="">
+    <div className="mb-10 h-full">
       {isEmptyCart ? (
         <div className="mt-72 flex w-full items-center justify-center text-center">
           There is no item in your cart
         </div>
       ) : (
-        <div className="">
-          <div className="absolute"></div>
+        <div className="mb-32">
           <div className="flex flex-col gap-3 ">
             {food_list.map((item, index) => {
               if (cartItems[item._id] > 0) {
@@ -234,7 +229,7 @@ export default function Cart() {
           <div className="flex justify-center">
             <div
               onClick={() => checkOut()}
-              className="absolute bottom-[90px] flex h-[53px] w-[167px] cursor-pointer items-center justify-between rounded-full bg-orange p-2"
+              className="fixed bottom-[90px] flex h-[53px] w-[167px] cursor-pointer items-center justify-between rounded-full bg-orange p-2"
             >
               <div className="flex flex-1 items-center justify-center text-sm font-medium tracking-widest text-white">
                 CHECKOUT

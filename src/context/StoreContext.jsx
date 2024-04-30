@@ -4,7 +4,7 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   // Cart Context
-  const [cartItems, setCartItems] = useState({ 1: 2 });
+  const [cartItems, setCartItems] = useState({});
 
   const addToCart = (itemId, value) => {
     if (!cartItems[itemId]) {
@@ -97,13 +97,11 @@ const StoreContextProvider = (props) => {
       delivery: delivery,
     };
 
-    setOrderHistory((prev) => [...prev, newItem]);
+    setOrderHistory((prev) => {
+      const updatedHistory = [...prev, newItem];
+      return updatedHistory.sort((a, b) => b.id - a.id);
+    });
   };
-
-  useEffect(() => {
-    console.log(cartItems);
-    console.log(orderHistory);
-  }, [cartItems, orderHistory]);
 
   const contextValue = {
     food_list,
