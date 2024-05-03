@@ -15,7 +15,7 @@ const StoreContextProvider = (props) => {
   };
 
   const reOrderFromHistory = (reorderitem) => {
-    setCartItems(reorderitem);
+    setCartItems((prev) => ({ ...prev, ...reorderitem }));
   };
 
   const removeFromCart = (itemId) => {
