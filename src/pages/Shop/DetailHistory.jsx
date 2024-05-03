@@ -20,7 +20,7 @@ export default function Cart() {
   };
 
   return (
-    <div className="h-full w-full px-5">
+    <div className="h-full w-full px-5 mb-32">
       <h1 className="mb-5 text-center text-lg font-medium ">History</h1>
       <div className="flex flex-col gap-3 ">
         {food_list.map((item, index) => {
@@ -139,7 +139,7 @@ export default function Cart() {
         <NavLink
           to={`/food-hub/shop`}
           onClick={() => reOrder()}
-          className="absolute bottom-[90px] flex h-[53px] w-[167px] cursor-pointer items-center justify-between rounded-full bg-orange p-2"
+          className="fixed bottom-[90px] flex h-[53px] w-[167px] cursor-pointer items-center justify-between rounded-full bg-orange p-2"
         >
           <div className="flex flex-1 items-center justify-center text-sm font-medium tracking-widest text-white">
             Re-Order
