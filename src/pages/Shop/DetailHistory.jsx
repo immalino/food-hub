@@ -7,6 +7,10 @@ export default function Cart() {
   const { food_list, reOrderFromHistory, orderHistory } =
     useContext(StoreContext);
 
+  const formatNumber = (num) => {
+    return num % 1 === 0 ? num.toFixed(0) : num.toFixed(1);
+  };
+
   const { id } = useParams();
 
   const selectedHistory = orderHistory.find((item) => item.id === id);
@@ -126,7 +130,7 @@ export default function Cart() {
         <div className="flex justify-between text-lg font-medium">
           <h2>Your change</h2>
           <h2>
-            ${selectedHistory.money - selectedHistory.total}
+            ${formatNumber(selectedHistory.money - selectedHistory.total)}
             <span className="ml-1 text-sm text-grey">USD</span>
           </h2>
         </div>
