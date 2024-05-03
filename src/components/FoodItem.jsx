@@ -37,7 +37,7 @@ export default function FoodItem({
         </div>
       </div>
       <div className="flex w-full flex-1 flex-col items-start justify-around px-3 py-5">
-        <NavLink to={`/detail/${id}`}>
+        <NavLink to={`/food-hub/detail/${id}`}>
           <h2 className="text-lg font-semibold">{name}</h2>
         </NavLink>
         <p>

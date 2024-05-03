@@ -132,7 +132,8 @@ export default function Cart() {
         </div>
       </div>
       <div className="flex justify-center">
-        <NavLink to={`/shop`}
+        <NavLink
+          to={`/food-hub/shop`}
           onClick={() => reOrder()}
           className="absolute bottom-[90px] flex h-[53px] w-[167px] cursor-pointer items-center justify-between rounded-full bg-orange p-2"
         >

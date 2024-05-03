@@ -21,7 +21,7 @@ import DetailHistory from "./pages/Shop/DetailHistory";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route
-      path="/"
+      path="/food-hub/"
       element={
         <StoreContextProvider>
           <RootLayout />

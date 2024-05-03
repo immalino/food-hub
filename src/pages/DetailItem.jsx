@@ -68,7 +68,7 @@ export default function DetailItem() {
           <FaBagShopping />
         </div>
         <NavLink
-          to={`/`}
+          to={`/food-hub/`}
           className="flex flex-1 items-center justify-center text-sm text-white"
         >
           ADD TO CART

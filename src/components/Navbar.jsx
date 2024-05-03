@@ -8,7 +8,7 @@ const Navbar = () => {
     <nav className="fixed bottom-0 left-0 right-0 z-50 mx-auto h-[74px] max-w-[425px] bg-white px-7">
       <ul className="flex h-full w-full items-center justify-around">
         <li>
-          <NavLink to="/" onClick={() => setActive("explore")}>
+          <NavLink to="/food-hub/" onClick={() => setActive("explore")}>
             <FaCompass
               className={`text-[32px]  ${active === "explore" ? "text-orange" : "text-grey"}`}
             />
